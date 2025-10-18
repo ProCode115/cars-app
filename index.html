@@ -1,87 +1,150 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="de">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Car Collector</title>
-<link rel="stylesheet" href="style.css">
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Car Collector</title>
+
+  <!-- PWA / Icons (dupliziere passende Icon-Dateien im /icons-Ordner) -->
+  <link rel="apple-touch-icon" sizes="180x180" href="/icons/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/icons/favicon-32.png">
+  <link rel="manifest" href="/manifest.json">
+
+  <!-- Theme color for address bar -->
+  <meta name="theme-color" content="#0b0b10">
+
+  <!-- Styles -->
+  <link rel="stylesheet" href="style.css">
+
+  <!-- improve font rendering -->
+  <meta name="description" content="Car Collector — News, Marken, Konfigurator">
 </head>
 <body>
-
-<header>
-  <h1>Car Collector</h1>
-  <div id="header-right">
-    <button id="mode-toggle">🌙 / ☀️</button>
-    <div id="quick-links">
-      <button onclick="openFresh('https://www.google.com')">Google</button>
-      <button onclick="openFresh('https://www.youtube.com')">YouTube</button>
-      <button onclick="openFresh('https://m.example.com')">Mobile</button>
+  <header class="site-header">
+    <div class="brand-left">
+      <button id="menu-btn" aria-label="Menu" class="icon-btn">☰</button>
+      <a class="logo" href="/">Car Collector</a>
     </div>
-  </div>
-</header>
 
-<main>
-  <!-- Hero-Bereich -->
-  <section id="hero">
-    <div class="hero-overlay">
-      <img id="hero-img" src="https://cdn.motor1.com/images/mgl/0ANk0/s1/porsche-911-turbo.jpg" alt="Hero Image">
-      <div id="hero-lights"></div>
-      <div id="hero-text">Cars</div>
+    <div class="site-actions">
+      <div id="quick-links" class="quick-links" aria-hidden="false">
+        <button class="link-btn" id="open-google" title="Open Google">Google</button>
+        <button class="link-btn" id="open-youtube" title="Open YouTube">YouTube</button>
+        <button class="link-btn" id="open-mobile" title="Open Mobile">Mobile</button>
+      </div>
+      <button id="mode-toggle" class="mode-toggle" title="Toggle dark/light">🌙</button>
     </div>
-    <input type="file" id="file-input" accept="image/*">
-  </section>
+  </header>
 
-  <!-- Banner-News -->
-  <section id="news-banner">
-    <h2>Aktuelle Auto News</h2>
-    <div class="news-container"></div>
-  </section>
+  <main>
+    <!-- HERO -->
+    <section id="hero" class="hero">
+      <div class="hero-inner glass">
+        <div class="hero-left">
+          <div class="hero-meta">
+            <h1 class="app-title">Car Collector</h1>
+            <p class="app-sub">Aktuelle Supersportwagen &amp; Live-News</p>
+            <div class="hero-controls">
+              <label class="file-label">
+                <input id="file-input" type="file" accept="image/*" hidden>
+                <span class="btn">Bild ändern</span>
+              </label>
+              <div class="config-inline">
+                <label>Farbe
+                  <select id="color-select" aria-label="Farbe">
+                    <option value="transparent">Kein Rahmen</option>
+                    <option value="#ff3b3b">Rot</option>
+                    <option value="#3b82ff">Blau</option>
+                    <option value="#2dd4bf">Türkis</option>
+                    <option value="#facc15">Gelb</option>
+                  </select>
+                </label>
+                <label>Licht
+                  <select id="lights-select" aria-label="Licht">
+                    <option value="#ffffff">Weiß</option>
+                    <option value="#ff3b3b">Rot</option>
+                    <option value="#3b82ff">Blau</option>
+                  </select>
+                </label>
+              </div>
+            </div>
+          </div>
+        </div>
 
-  <!-- Marken-Sektion -->
-  <section id="brands">
-    <h2>Supersportwagen-Marken</h2>
-    <div class="brand-container">
-      <!-- Markenkarten werden dynamisch per JS eingefügt -->
+        <div class="hero-right">
+          <div id="hero-canvas" class="hero-canvas">
+            <img id="hero-img" src="https://cdn.motor1.com/images/mgl/0ANk0/s1/porsche-911-turbo.jpg" alt="Hero car">
+            <div id="hero-lights" class="hero-lights" aria-hidden="true"></div>
+            <div id="hero-overlay-text" class="hero-overlay-text">Cars</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- NEWS SLIDER -->
+    <section id="news-section" class="news-section glass">
+      <div class="news-header">
+        <h2>Top News — Motor1 Deutschland</h2>
+        <div class="news-actions">
+          <button id="refresh-news" class="icon-btn" title="Neu laden">⟳</button>
+        </div>
+      </div>
+      <div id="news-slider" class="news-slider">
+        <!-- JS füllt 5 News-Karten: Bild + Titel, klick öffnet Motor1-Artikel -->
+      </div>
+    </section>
+
+    <!-- BRANDS GRID -->
+    <section id="brands-section" class="brands-section">
+      <h2>Supersportwagen Marken</h2>
+      <div id="brand-grid" class="brand-grid" role="list">
+        <!-- JS füllt Marken-Karten (3 per row mobile, 5 per row tablet/desktop) -->
+      </div>
+    </section>
+
+    <!-- CONFIG / PREVIEW -->
+    <section id="preview-section" class="preview-section glass">
+      <h2>Vorschau &amp; Konfiguration</h2>
+      <div class="preview-inner">
+        <div class="preview-image">
+          <img id="preview-img" src="https://cdn.motor1.com/images/mgl/0ANk0/s1/porsche-911-turbo.jpg" alt="Preview">
+        </div>
+        <div class="preview-controls">
+          <p class="small">Wähle Farbe und Licht, klicke auf eine Marke, um sie in der Vorschau zu sehen.</p>
+          <div id="selected-brand" class="selected-brand">Keine Marke gewählt</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CHAT -->
+    <section id="chat-section" class="chat-section">
+      <h2>Nachricht an Car Collector</h2>
+      <textarea id="chat-input" placeholder="Deine Nachricht..."></textarea>
+      <div class="chat-actions">
+        <button id="chat-send" class="btn">Senden</button>
+      </div>
+      <div id="chat-response" class="chat-response"></div>
+    </section>
+  </main>
+
+  <footer class="site-footer glass">
+    <div class="footer-inner">
+      <div>© 2025 Car Collector — Designed for Passionate Drivers</div>
+      <div class="social">
+        <a href="https://instagram.com" target="_blank" rel="noopener noreferrer">Instagram</a>
+        <a href="https://facebook.com" target="_blank" rel="noopener noreferrer">Facebook</a>
+        <a href="https://twitter.com" target="_blank" rel="noopener noreferrer">Twitter</a>
+      </div>
     </div>
-  </section>
+  </footer>
 
-  <!-- Auto-Konfiguration -->
-  <section id="car-config">
-    <h2>Auto Konfiguration</h2>
-    <div id="config-controls">
-      <label>Farbe:</label>
-      <select id="color-select">
-        <option value="red">Rot</option>
-        <option value="blue">Blau</option>
-        <option value="green">Grün</option>
-        <option value="yellow">Gelb</option>
-      </select>
-      <label>Licht:</label>
-      <select id="lights-select">
-        <option value="white">Weiß</option>
-        <option value="red">Rot</option>
-        <option value="blue">Blau</option>
-      </select>
-    </div>
-  </section>
-
-  <!-- Chatbereich -->
-  <section id="chat">
-    <textarea placeholder="Schreibe eine Nachricht..."></textarea>
-    <button onclick="sendMessage()">Senden</button>
-    <div id="response"></div>
-  </section>
-</main>
-
-<footer>
-  <p>&copy; 2025 Car Collector</p>
-  <div id="social-links">
-    <a href="https://www.instagram.com" target="_blank">Instagram</a>
-    <a href="https://www.facebook.com" target="_blank">Facebook</a>
-    <a href="https://www.twitter.com" target="_blank">Twitter</a>
-  </div>
-</footer>
-
-<script src="script.js"></script>
+  <!-- Service Worker registration + Main JS -->
+  <script>
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.register('/service-worker.js').catch(()=>{/*sw failed*/});
+    }
+  </script>
+  <script src="script.js"></script>
 </body>
 </html>
