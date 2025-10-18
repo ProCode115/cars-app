@@ -3,27 +3,38 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Cars App</title>
+<title>Car Collector</title>
 <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
 <header>
-  <h1>Cars Auto News</h1>
-  <button id="mode-toggle">🌙 / ☀️</button>
+  <h1>Car Collector</h1>
+  <div id="header-right">
+    <button id="mode-toggle">🌙 / ☀️</button>
+    <div id="quick-links">
+      <button onclick="openFresh('https://www.google.com')">Google</button>
+      <button onclick="openFresh('https://www.youtube.com')">YouTube</button>
+      <button onclick="openFresh('https://m.example.com')">Mobile</button>
+    </div>
+  </div>
 </header>
 
 <main>
-  <!-- Banner mit aktuellen Auto-News -->
-  <section id="news-banner">
-    <!-- JavaScript füllt die 5 aktuellsten News automatisch -->
+  <!-- Hero-Bereich -->
+  <section id="hero">
+    <img id="hero-img" src="https://cdn.motor1.com/images/mgl/0ANk0/s1/porsche-911-turbo.jpg" alt="Hero Image">
+    <div id="hero-text">Cars</div>
+    <input type="file" id="file-input" accept="image/*">
   </section>
+
+  <!-- Banner-News -->
+  <section id="news-banner"></section>
 
   <!-- Marken-Slideshow -->
   <section id="brands">
     <h2>Supersportwagen-Marken</h2>
     <div class="brand-container">
-      <!-- Porsche -->
       <div class="brand-card" onclick="window.open('https://www.porsche.com')">
         <div class="brand-slider">
           <img src="https://cdn.motor1.com/images/mgl/0ANk0/s1/porsche-911-turbo.jpg" alt="Porsche 1">
@@ -31,7 +42,6 @@
         </div>
         <h3>Porsche</h3>
       </div>
-      <!-- Bugatti -->
       <div class="brand-card" onclick="window.open('https://www.bugatti.com')">
         <div class="brand-slider">
           <img src="https://cdn.motor1.com/images/mgl/0ANk0/s1/bugatti-chiron.jpg" alt="Bugatti 1">
@@ -39,29 +49,12 @@
         </div>
         <h3>Bugatti</h3>
       </div>
-      <!-- Koenigsegg -->
       <div class="brand-card" onclick="window.open('https://www.koenigsegg.com')">
         <div class="brand-slider">
           <img src="https://cdn.motor1.com/images/mgl/0ANk0/s1/koenigsegg-jesko.jpg" alt="Koenigsegg 1">
           <img src="https://cdn.motor1.com/images/mgl/6lLrR/s1/koenigsegg-gemera.jpg" alt="Koenigsegg 2">
         </div>
         <h3>Koenigsegg</h3>
-      </div>
-      <!-- Pagani -->
-      <div class="brand-card" onclick="window.open('https://www.pagani.com')">
-        <div class="brand-slider">
-          <img src="https://cdn.motor1.com/images/mgl/0ANk0/s1/pagani-huayra.jpg" alt="Pagani 1">
-          <img src="https://cdn.motor1.com/images/mgl/6lLrR/s1/pagani-zonda.jpg" alt="Pagani 2">
-        </div>
-        <h3>Pagani</h3>
-      </div>
-      <!-- Aston Martin -->
-      <div class="brand-card" onclick="window.open('https://www.astonmartin.com')">
-        <div class="brand-slider">
-          <img src="https://cdn.motor1.com/images/mgl/0ANk0/s1/aston-martin-db11.jpg" alt="Aston Martin 1">
-          <img src="https://cdn.motor1.com/images/mgl/6lLrR/s1/aston-martin-valkyrie.jpg" alt="Aston Martin 2">
-        </div>
-        <h3>Aston Martin</h3>
       </div>
     </div>
   </section>
@@ -72,12 +65,9 @@
     <button onclick="sendMessage()">Senden</button>
     <div id="response"></div>
   </section>
-
 </main>
 
-<footer>
-  &copy; 2025 Cars App
-</footer>
+<footer>&copy; 2025 Car Collector</footer>
 
 <script src="script.js"></script>
 </body>
