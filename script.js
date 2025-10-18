@@ -1,19 +1,14 @@
-// Dark / Light Mode Toggle
+// Dark / Light Mode
 const toggleButton = document.getElementById('mode-toggle');
-if(localStorage.getItem('mode')) {
-  document.body.className = localStorage.getItem('mode');
-} else {
-  document.body.className = 'dark-mode';
-}
+if(localStorage.getItem('mode')) { document.body.className = localStorage.getItem('mode'); } 
+else { document.body.className = 'dark-mode'; }
 toggleButton.addEventListener('click', () => {
   if(document.body.classList.contains('dark-mode')) {
-    document.body.classList.remove('dark-mode');
-    document.body.classList.add('light-mode');
-    localStorage.setItem('mode', 'light-mode');
+    document.body.classList.replace('dark-mode','light-mode');
+    localStorage.setItem('mode','light-mode');
   } else {
-    document.body.classList.remove('light-mode');
-    document.body.classList.add('dark-mode');
-    localStorage.setItem('mode', 'dark-mode');
+    document.body.classList.replace('light-mode','dark-mode');
+    localStorage.setItem('mode','dark-mode');
   }
 });
 
@@ -37,19 +32,44 @@ function sendMessage() {
   textarea.value = '';
 }
 
-// Auto-News von Motor1 (nur Text + Link, Bilder optional über API)
+// News-Beispiele
 const newsBanner = document.getElementById('news-banner');
 const sampleNews = [
-  {title: "Neue Porsche Modelle 2025", link: "https://www.motor1.com/news/1", img:"https://cdn.motor1.com/images/mgl/0ANk0/s1/porsche-911-turbo.jpg"},
-  {title: "BMW präsentiert i8 Update", link: "https://www.motor1.com/news/2", img:"https://cdn.motor1.com/images/mgl/0ANk0/s1/bmw-i8.jpg"},
-  {title: "Audi R8 Facelift", link: "https://www.motor1.com/news/3", img:"https://cdn.motor1.com/images/mgl/0ANk0/s1/audi-r8.jpg"},
-  {title: "Bugatti Chiron Super Sport", link: "https://www.motor1.com/news/4", img:"https://cdn.motor1.com/images/mgl/0ANk0/s1/bugatti-chiron.jpg"},
-  {title: "Koenigsegg Gemera Launch", link: "https://www.motor1.com/news/5", img:"https://cdn.motor1.com/images/mgl/0ANk0/s1/koenigsegg-gemera.jpg"}
+  {title:"Neue Porsche Modelle 2025", link:"#", img:"https://cdn.motor1.com/images/mgl/0ANk0/s1/porsche-911-turbo.jpg"},
+  {title:"BMW i4 Update", link:"#", img:"https://cdn.motor1.com/images/mgl/0ANk0/s1/bmw-i4.jpg"},
+  {title:"Audi R8 Facelift", link:"#", img:"https://cdn.motor1.com/images/mgl/0ANk0/s1/audi-r8.jpg"},
+  {title:"Bugatti Chiron Super Sport", link:"#", img:"https://cdn.motor1.com/images/mgl/0ANk0/s1/bugatti-chiron.jpg"},
+  {title:"Koenigsegg Gemera Launch", link:"#", img:"https://cdn.motor1.com/images/mgl/0ANk0/s1/koenigsegg-gemera.jpg"}
 ];
-
 sampleNews.forEach(item=>{
-  const div = document.createElement('div');
+  const div=document.createElement('div');
   div.classList.add('news-item');
-  div.innerHTML = `<img src="${item.img}" alt="${item.title}"><h3><a href="${item.link}" target="_blank">${item.title}</a></h3>`;
+  div.innerHTML=`<img src="${item.img}" alt="${item.title}"><h3><a href="${item.link}" target="_blank">${item.title}</a></h3>`;
   newsBanner.appendChild(div);
 });
+
+// Drag & Drop Hero Image
+const fileInput = document.getElementById('file-input');
+const heroImg = document.getElementById('hero-img');
+fileInput.addEventListener('change', e => {
+  const file = e.target.files[0];
+  if(!file) return;
+  const reader = new FileReader();
+  reader.onload = () => { heroImg.src = reader.result; };
+  reader.readAsDataURL(file);
+});
+const hero = document.getElementById('hero');
+hero.addEventListener('dragover', e => e.preventDefault());
+hero.addEventListener('drop', e => {
+  e.preventDefault();
+  const file = e.dataTransfer.files[0];
+  if(!file) return;
+  const reader = new FileReader();
+  reader.onload = () => { heroImg.src = reader.result; };
+  reader.readAsDataURL(file);
+});
+
+// Öffnen externer Seiten frisch (Google, YouTube, Mobile)
+function openFresh(url) {
+  window.open(url, '_blank', 'noopener,noreferrer');
+}
